@@ -7,3 +7,5 @@ fasttext-langdetect
 emoji
 aiohttp
 pyarrow
+google-cloud-bigquery-storage
+google-cloud-bigquery
