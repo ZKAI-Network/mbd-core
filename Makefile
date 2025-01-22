@@ -119,3 +119,17 @@ lint: ruff mypy format blocklint yamllint
 test: ## Run all tests.
 test: sync-dev-requirements
 	$(PYTEST_COMMAND)
+
+.PHONY: release-patch release-minor release-major
+release-patch:
+	bump2version patch
+
+release-minor:
+	bump2version minor
+
+release-major:
+	bump2version major
+
+release-tag:
+	git push
+	git push --tags

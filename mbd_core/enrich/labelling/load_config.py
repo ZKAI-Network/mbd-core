@@ -99,10 +99,9 @@ def load_config() -> dict:
     """Load label config."""
     config = json.loads(read_text("mbd_core.enrich.labelling", "config.json"))
     labels = _get_label_keys(config)
-
-    assert set(labels) == set(
-        LABELS_MAP.keys()
-    ), "Labels in config do not match LABELS_MAP"
+    assert set(labels) == set(LABELS_MAP.keys()), (
+        "Labels in config do not match LABELS_MAP"
+    )
     return cast(dict, config)
 
 

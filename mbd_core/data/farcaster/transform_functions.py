@@ -8,6 +8,7 @@ from pandas.api.types import is_datetime64_ns_dtype
 
 from mbd_core.data.farcaster.utils import enrich_df_with_url_metadata
 from mbd_core.data.schema import (
+    APP_COLUMN,
     AUTHOR_ID_COLUMN,
     EDGE_TYPE_COLUMN,
     EMBED_ITEMS_COLUMN,
@@ -29,7 +30,6 @@ from mbd_core.data.schema import (
     USER_CREATION_TIME_COLUMN,
     USER_PROFILE_COLUMN,
     USER_UPDATE_TIME_COLUMN,
-    APP_COLUMN,
 )
 
 REACT_TYPE_MAP = {1: "like", 2: "share"}

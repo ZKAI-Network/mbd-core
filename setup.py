@@ -29,10 +29,10 @@ def get_requirements(requirements_file):
 
 setup(
     name="mbd_core",
-    version="0.0.3" + FROZEN_VERSION,
+    version="0.0.4" + FROZEN_VERSION,
     description="""mbd core packages.""",
-    author="Feng Shi",
-    author_email="feng@mbd.xyz",
+    author="Yassine Landa",
+    author_email="yl@mbd.xyz",
     python_requires="~=3.10",
     include_package_data=True,
     packages=find_namespace_packages(
