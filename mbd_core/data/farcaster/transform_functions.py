@@ -26,14 +26,16 @@ from mbd_core.data.schema import (
     PUBLICATION_TYPES,
     ROOT_ITEM_COLUMN,
     TIME_COLUMN,
+    USER_BIO_COLUMN,
     USER_COLUMN,
     USER_CREATION_TIME_COLUMN,
+    USER_NAME_COLUMN,
+    USER_PHOTO_URL_COLUMN,
     USER_PROFILE_COLUMN,
     USER_UPDATE_TIME_COLUMN,
 )
 
 REACT_TYPE_MAP = {1: "like", 2: "share"}
-USER_BIO_TYPE = 3
 
 
 def apply_ftdetect(text: str) -> tuple[str, float]:
@@ -203,14 +205,15 @@ def get_interaction_df(
 
 def get_user_df(user_df: pd.DataFrame) -> pd.DataFrame:
     """Transform user dataframe from user dataframe."""
-    user_df = user_df[user_df["type"] == USER_BIO_TYPE].copy()
     user_df[USER_COLUMN] = user_df["fid"].astype(str)
     user_df[PROTOCOL_COLUMN] = PROTOCOLS.farcaster.value
     user_df[USER_CREATION_TIME_COLUMN] = pd.to_datetime(
         user_df["created_at"]
     ).dt.tz_localize("UTC")
-    user_df[USER_UPDATE_TIME_COLUMN] = user_df["timestamp"]
-    user_df[USER_PROFILE_COLUMN] = user_df["value"]
+    user_df[USER_UPDATE_TIME_COLUMN] = user_df["registered_at"]
+    user_df[USER_PROFILE_COLUMN] = user_df["fname"]
+    user_df[USER_PHOTO_URL_COLUMN] = user_df["avatar_url"]
+    user_df[USER_NAME_COLUMN] = user_df["display_name"]
     user_df[APP_COLUMN] = user_df["app_fid"].apply(lambda x: [str(i) for i in x])
     user_df = user_df[
         [
@@ -219,6 +222,9 @@ def get_user_df(user_df: pd.DataFrame) -> pd.DataFrame:
             USER_CREATION_TIME_COLUMN,
             USER_UPDATE_TIME_COLUMN,
             USER_PROFILE_COLUMN,
+            USER_PHOTO_URL_COLUMN,
+            USER_NAME_COLUMN,
+            USER_BIO_COLUMN,
             APP_COLUMN,
         ]
     ].copy()

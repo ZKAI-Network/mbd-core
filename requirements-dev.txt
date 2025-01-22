@@ -54,8 +54,6 @@ idna==3.10
     #   yarl
 imagesize==1.4.1
     # via sphinx
-importlib-metadata==4.13.0
-    # via -r requirements-dev/misc.in
 iniconfig==2.0.0
     # via
     #   -r requirements-dev/test.in
@@ -108,8 +106,6 @@ pandera==0.22.1
     # via -r requirements.in
 pathspec==0.12.1
     # via yamllint
-pip==24.3.1
-    # via -r requirements-dev/misc.in
 pluggy==1.5.0
     # via pytest
 propcache==0.2.1
@@ -135,16 +131,26 @@ pygments==2.19.1
     # via sphinx
 pytest==8.3.4
     # via
+    #   -r requirements-dev/misc.in
     #   -r requirements-dev/test.in
+    #   pytest-asyncio
     #   pytest-cov
     #   pytest-lazy-fixture
     #   pytest-sugar
+pytest-asyncio==0.25.2
+    # via -r requirements-dev/misc.in
 pytest-cov==6.0.0
-    # via -r requirements-dev/test.in
+    # via
+    #   -r requirements-dev/misc.in
+    #   -r requirements-dev/test.in
 pytest-lazy-fixture==0.6.3
-    # via -r requirements-dev/test.in
+    # via
+    #   -r requirements-dev/misc.in
+    #   -r requirements-dev/test.in
 pytest-sugar==1.0.0
-    # via -r requirements-dev/test.in
+    # via
+    #   -r requirements-dev/misc.in
+    #   -r requirements-dev/test.in
 python-dateutil==2.9.0.post0
     # via pandas
 python-dotenv==1.0.1
@@ -226,5 +232,3 @@ yamllint==1.35.1
     # via -r requirements-dev/lint.in
 yarl==1.18.3
     # via aiohttp
-zipp==3.21.0
-    # via importlib-metadata

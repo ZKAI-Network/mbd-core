@@ -13,14 +13,14 @@ def pytest_configure():
 
 @pytest.fixture(scope="session")
 def farcaster_casts_dataframe():
-    return pd.read_parquet("tests/data/farcaster/casts.parquet")
+    return pd.read_json("tests/data/farcaster/farcaster-casts-stream-v1.json")
 
 
 @pytest.fixture(scope="session")
 def farcaster_reactions_dataframe():
-    return pd.read_parquet("tests/data/farcaster/reactions.parquet")
+    return pd.read_json("tests/data/farcaster/farcaster-reactions-stream-v1.json")
 
 
 @pytest.fixture(scope="session")
 def farcaster_users_dataframe():
-    return pd.read_parquet("tests/data/farcaster/users.parquet")
+    return pd.read_json("tests/data/farcaster/farcaster_users_stream-v1.json")

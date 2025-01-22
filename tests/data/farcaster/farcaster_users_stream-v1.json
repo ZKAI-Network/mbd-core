@@ -1,0 +1,65 @@
+[
+    {
+        "protocol_protocalUserID": "farcaster_963108",
+        "wallet_address": "eth:a2cce7c0751657f302fa94ed4560acb5d364f45c",
+        "is_custody_address": true,
+        "fid": 963108,
+        "fname": null,
+        "display_name": null,
+        "avatar_url": null,
+        "bio": null,
+        "verified_addresses": [],
+        "updated_at": "2025-01-21T13:20:26.971162",
+        "app_fid": [],
+        "created_at": "2025-01-21T13:20:26.971162",
+        "custody_address": "a2cce7c0751657f302fa94ed4560acb5d364f45c",
+        "registered_at": "2025-01-21T13:20:15+00:00"
+    },
+    {
+        "protocol_protocalUserID": "farcaster_191843",
+        "wallet_address": "eth:d7d6c4bcf55e32587eaeb4a38c25b38b8cf90ab6",
+        "is_custody_address": true,
+        "fid": 191843,
+        "fname": "dt2001009",
+        "display_name": "shimi8837",
+        "avatar_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/e0e4bd21-6375-47d0-15e5-7029ad5dda00/rectcrop3",
+        "bio": "",
+        "verified_addresses": [
+            "0xab0c3c7c5a68e2cf092d3559dabd8c6f7f8280767814f92fa6a92785d9d5f385",
+            "0xf0de45dc483ecf26e2651adca6c6f2cdf866ea68",
+            "0xab0c3c7c5a68e2cf092d3559dabd8c6f7f8280767814f92fa6a92785d9d5f385"
+        ],
+        "updated_at": "2025-01-21T13:22:00.705586",
+        "app_fid": [
+            9152,
+            16823,
+            18548,
+            718133,
+            727316,
+            868163
+        ],
+        "created_at": "2024-08-07T19:19:17.493502",
+        "custody_address": "d7d6c4bcf55e32587eaeb4a38c25b38b8cf90ab6",
+        "registered_at": "2023-11-07T20:27:57+00:00"
+    },
+    {
+        "protocol_protocalUserID": "farcaster_918968",
+        "wallet_address": "eth:0x123ebcd2f46a8427ee6d1c6eac36d3eeb039e419",
+        "is_custody_address": false,
+        "fid": 918968,
+        "fname": "mountainphoenix",
+        "display_name": "SilverHawk",
+        "avatar_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/a8e0e604-caeb-42e7-bbc1-3a843897c900/rectcrop3",
+        "bio": "founder",
+        "verified_addresses": [
+            "0x123ebcd2f46a8427ee6d1c6eac36d3eeb039e419"
+        ],
+        "updated_at": "2025-01-21T13:21:06.718072",
+        "app_fid": [
+            9152
+        ],
+        "created_at": "2024-12-25T21:31:37.708623",
+        "custody_address": "18caa4f3e99841e5facea1cfa81cffa771f4fa05",
+        "registered_at": "2024-12-25T21:31:27+00:00"
+    }
+]

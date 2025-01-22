@@ -123,6 +123,7 @@ WALLET_ADDRESSES_COLUMN = "wallet_addresses"
 USER_NAME_COLUMN = "username"
 USER_PHOTO_URL_COLUMN = "photo_url"
 MBD_ID_COLUMN = "mbd_id"
+USER_BIO_COLUMN = "bio"
 
 
 USER_META_SCHEMA = pa.DataFrameSchema(
@@ -138,6 +139,7 @@ USER_META_SCHEMA = pa.DataFrameSchema(
         USER_PROFILE_COLUMN: pa.Column(str, nullable=True, required=False),
         USER_PHOTO_URL_COLUMN: pa.Column(str, nullable=True, required=False),
         USER_NAME_COLUMN: pa.Column(str, nullable=True, required=False),
+        USER_BIO_COLUMN: pa.Column(str, nullable=True, required=False),
     },
     strict=False,
 )
