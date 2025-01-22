@@ -1,0 +1,67 @@
+[
+    {
+        "id": 948597298,
+        "created_at": "2025-01-21T13:23:20.728935",
+        "updated_at": "2025-01-21T13:23:20.728935",
+        "deleted_at": null,
+        "timestamp": "2025-01-21T13:23:20",
+        "fid": 839993,
+        "hash": "889885d49e4840843c05a31e3e626ef5f4ab42e2",
+        "parent_hash": "024b0e43f56b9c92e7e6b8a5f745ee7689e5248f",
+        "parent_fid": 864185.0,
+        "parent_url": null,
+        "text": "Qu\u1ec1n cha n\u00e0!  Have you had any moments of generosity today? ",
+        "embeds": [],
+        "mentions": [],
+        "mentions_positions": [],
+        "root_parent_hash": "024b0e43f56b9c92e7e6b8a5f745ee7689e5248f",
+        "root_parent_url": null,
+        "app_fid": 9152
+    },
+    {
+        "id": 948597484,
+        "created_at": "2025-01-21T13:24:07.531413",
+        "updated_at": "2025-01-21T13:24:07.531413",
+        "deleted_at": null,
+        "timestamp": "2025-01-21T13:24:06",
+        "fid": 403507,
+        "hash": "48b128cf707c3b3adf55db0def756e42f9084830",
+        "parent_hash": "1bd4c25141ddcba8946efdcc575ff938c349e63c",
+        "parent_fid": 508610.0,
+        "parent_url": null,
+        "text": "\u2705 154 tipped \u2219 0 remaining\n\n154 / 154 (100%)\n\u2705\u2705\u2705\u2705\u2705\u2705\u2705\u2705\u2705\u2705",
+        "embeds": [
+            {
+                "url": "https://degentip.bot/frame_rolling/508610?cb=4448349"
+            }
+        ],
+        "mentions": [],
+        "mentions_positions": [],
+        "root_parent_hash": "4f6cd097c879bc6777200f5be42da004255a90a2",
+        "root_parent_url": "chain://eip155:7777777/erc721:0x5d6a07d07354f8793d1ca06280c4adf04767ad7e",
+        "app_fid": 403507
+    },
+    {
+        "id": 948597311,
+        "created_at": "2025-01-21T13:23:23.906157",
+        "updated_at": "2025-01-21T13:23:23.906157",
+        "deleted_at": null,
+        "timestamp": "2025-01-21T13:23:23",
+        "fid": 435368,
+        "hash": "c9cd5543863b0161ee9dd91a828a95bd2c1bba3d",
+        "parent_hash": null,
+        "parent_fid": NaN,
+        "parent_url": null,
+        "text": "\ud83d\udc1f\ud83d\udc1f\ud83d\udc1f https://ik.imagekit.io/lens/media-snapshot/0c0878b17546fd751fb707e71c07b9ca341bf00c9d4ad83015d9da59f716147e.jpg",
+        "embeds": [
+            {
+                "url": "https://ik.imagekit.io/lens/media-snapshot/0c0878b17546fd751fb707e71c07b9ca341bf00c9d4ad83015d9da59f716147e.jpg"
+            }
+        ],
+        "mentions": [],
+        "mentions_positions": [],
+        "root_parent_hash": "c9cd5543863b0161ee9dd91a828a95bd2c1bba3d",
+        "root_parent_url": null,
+        "app_fid": 9152
+    }
+]
