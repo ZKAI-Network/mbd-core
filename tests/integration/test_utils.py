@@ -1,6 +1,5 @@
 import pandas as pd
 import pytest
-import asyncio
 
 from mbd_core.data.farcaster.utils import (
     _get_url_enrichment,
@@ -28,10 +27,6 @@ async def test_get_urls_list_metadata():
     # Get metadata for all URLs
     results = await get_urls_list_metadata(url_batches)
 
-    # Print results in a more readable format
-    print("\nURL Metadata Results:")
-    print(f"Raw results: {results}")  # Print raw results for debugging
-
     # Basic structure checks
     assert isinstance(results, list), "Results should be a list"
     assert len(results) > 0, "Results list should not be empty"
@@ -55,17 +50,10 @@ async def test_get_urls_list_metadata():
     assert "description" in twitter_meta, "Twitter metadata should have a description"
     assert "publisher" in twitter_meta, "Twitter metadata should have a publisher"
 
-    # Print detailed results for debugging
-    print("\nDetailed Metadata:")
-    for url, meta in metadata.items():
-        print(f"\nURL: {url}")
-        for key, value in meta.items():
-            print(f"  {key}: {value}")
-
 
 def test_get_url_enrichment():
     # Test with title and description
-    df = pd.DataFrame(
+    metadata_df = pd.DataFrame(
         {
             "url_meta": [
                 {
@@ -80,28 +68,28 @@ def test_get_url_enrichment():
         }
     )
 
-    result = _get_url_enrichment(df, "url_text", "is_frame")
+    result = _get_url_enrichment(metadata_df, "url_text", "is_frame")
     assert (
         result["url_text"] == "Test Title Test Description Only Title Only Description"
     )
     assert result["is_frame"] is True
 
     # Test with empty metadata
-    df_empty = pd.DataFrame({"url_meta": [{}]})
-    result_empty = _get_url_enrichment(df_empty, "url_text", "is_frame")
+    empty_metadata_df = pd.DataFrame({"url_meta": [{}]})
+    result_empty = _get_url_enrichment(empty_metadata_df, "url_text", "is_frame")
     assert result_empty["url_text"] == ""
     assert result_empty["is_frame"] is False
 
 
 def test_enrich_df_with_url_metadata():
     # Test DataFrame with URLs
-    df = pd.DataFrame(
+    sample_urls_df = pd.DataFrame(
         {"id": [1, 2], "urls": [["https://example1.com"], ["https://example2.com"]]}
     )
 
     # Test with empty result (no metadata found)
     result_df = enrich_df_with_url_metadata(
-        df=df,
+        df=sample_urls_df,
         url_column="urls",
         item_id_col="id",
         enrich_url_text_col="url_text",
@@ -115,9 +103,9 @@ def test_enrich_df_with_url_metadata():
     assert all(result_df["is_frame"] == False)  # noqa: E712
 
     # Test with empty URLs
-    df_empty = pd.DataFrame({"id": [1], "urls": [[]]})
+    empty_urls_df = pd.DataFrame({"id": [1], "urls": [[]]})
     result_empty = enrich_df_with_url_metadata(
-        df=df_empty,
+        df=empty_urls_df,
         url_column="urls",
         item_id_col="id",
         enrich_url_text_col="url_text",
@@ -127,23 +115,18 @@ def test_enrich_df_with_url_metadata():
     assert all(result_empty["is_frame"] == False)  # noqa: E712
 
     # Test with real URLs that should return metadata
-    df_real = pd.DataFrame({
-        "id": [1, 2],
-        "urls": [["https://google.com"], ["https://twitter.com"]]
-    })
+    real_urls_df = pd.DataFrame(
+        {"id": [1, 2], "urls": [["https://google.com"], ["https://twitter.com"]]}
+    )
     result_real = enrich_df_with_url_metadata(
-        df=df_real,
+        df=real_urls_df,
         url_column="urls",
         item_id_col="id",
         enrich_url_text_col="url_text",
         enrich_frame_col="is_frame",
     )
-    
+
     # Verify we got metadata
     assert not all(result_real["url_text"] == ""), "Should have some URL text metadata"
     assert "url_text" in result_real.columns
     assert "is_frame" in result_real.columns
-    
-    # Print results for debugging
-    print("\nEnriched DataFrame Results:")
-    print(result_real[["id", "url_text", "is_frame"]])
