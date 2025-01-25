@@ -120,16 +120,19 @@ test: ## Run all tests.
 test: sync-dev-requirements
 	$(PYTEST_COMMAND)
 
-.PHONY: release-patch release-minor release-major
-release-patch:
+.PHONY: pre-release-checks
+pre-release-checks: lint test
+
+.PHONY: release-patch release-minor release-major release-tag
+release-patch: pre-release-checks
 	bump2version patch
 
-release-minor:
+release-minor: pre-release-checks
 	bump2version minor
 
-release-major:
+release-major: pre-release-checks
 	bump2version major
 
-release-tag:
+release-tag: pre-release-checks
 	git push
 	git push --tags

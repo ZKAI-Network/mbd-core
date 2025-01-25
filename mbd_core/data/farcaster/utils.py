@@ -47,7 +47,7 @@ def clean_text(item_df: pd.DataFrame, text_col: str, time_col: str) -> pd.DataFr
     # Apply degen term removal
     item_df[text_col] = item_df[text_col].apply(remove_degen)
 
-    # Filter items with less than 10 characters
+    # Filter items with less than 20 characters MIN_TEXT_LENGTH
     item_df = item_df[item_df[text_col].apply(filter_text)].copy()
     # Filter duplicate items
     return (

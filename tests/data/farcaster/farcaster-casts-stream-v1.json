@@ -50,7 +50,7 @@
         "fid": 435368,
         "hash": "c9cd5543863b0161ee9dd91a828a95bd2c1bba3d",
         "parent_hash": null,
-        "parent_fid": NaN,
+        "parent_fid": null,
         "parent_url": null,
         "text": "\ud83d\udc1f\ud83d\udc1f\ud83d\udc1f https://ik.imagekit.io/lens/media-snapshot/0c0878b17546fd751fb707e71c07b9ca341bf00c9d4ad83015d9da59f716147e.jpg",
         "embeds": [
@@ -62,6 +62,25 @@
         "mentions_positions": [],
         "root_parent_hash": "c9cd5543863b0161ee9dd91a828a95bd2c1bba3d",
         "root_parent_url": null,
+        "app_fid": 9152
+    },
+    {
+        "id": 948642187, 
+        "created_at": "2025-01-21T16:29:21.527503", 
+        "updated_at": "2025-01-21T16:29:21.527503", 
+        "deleted_at": null, 
+        "timestamp": "2025-01-21T16:29:21", 
+        "fid": 344363, 
+        "hash": "88adab559e9e57c49f880820fb9cfcadea221fcd", 
+        "parent_hash": null, 
+        "parent_fid": null, 
+        "parent_url": "https://warpcast.com/~/channel/streamm", 
+        "text": "Meet Rita: The AI co-host exclusively designed for  \ud83d\udcfa\n\nFull episode up on  \ud83d\udc47\ud83c\udffd\ud83e\uddf5", 
+        "embeds": [{"url": "https://stream.warpcast.com/v1/video/019489af-8814-541b-6096-5ae8ecc2d157.m3u8"}], 
+        "mentions": [352723, 13875], 
+        "mentions_positions": [51, 77], 
+        "root_parent_hash": "88adab559e9e57c49f880820fb9cfcadea221fcd", 
+        "root_parent_url": "https://warpcast.com/~/channel/streamm", 
         "app_fid": 9152
     }
 ]
