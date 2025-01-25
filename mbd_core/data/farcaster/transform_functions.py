@@ -79,11 +79,17 @@ def get_item_df(
     # enrich url metadata
     # Extract URLs from both text and embeds, deduplicating them
     item_df[EMBED_ITEMS_COLUMN] = item_df.apply(
-        lambda row: list(dict.fromkeys(  # Use dict.fromkeys to preserve order while deduplicating
-            re.findall(r"https?://\S+", row["text"]) + 
-            [embed["url"] for embed in row["embeds"] if isinstance(embed, dict) and "url" in embed]
-        )),
-        axis=1
+        lambda row: list(
+            dict.fromkeys(  # Use dict.fromkeys to preserve order while deduplicating
+                re.findall(r"https?://\S+", row["text"])
+                + [
+                    embed["url"]
+                    for embed in row["embeds"]
+                    if isinstance(embed, dict) and "url" in embed
+                ]
+            )
+        ),
+        axis=1,
     )
 
     item_df = enrich_df_with_url_metadata(
@@ -93,11 +99,16 @@ def get_item_df(
         enrich_url_text_col="_url_text",
         enrich_frame_col="_frame",
     )
-    
+
     # Only concatenate URL metadata text when it exists and is not empty
     item_df["text"] = item_df.apply(
-        lambda row: row["text"] + (f". {row['_url_text']}" if pd.notna(row['_url_text']) and row['_url_text'].strip() else ""),
-        axis=1
+        lambda row: row["text"]
+        + (
+            f". {row['_url_text']}"
+            if pd.notna(row["_url_text"]) and row["_url_text"].strip()
+            else ""
+        ),
+        axis=1,
     )
 
     # clean text
