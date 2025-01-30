@@ -36,6 +36,7 @@ from mbd_core.data.schema import (
     USER_PHOTO_URL_COLUMN,
     USER_PROFILE_COLUMN,
     USER_UPDATE_TIME_COLUMN,
+    LOCATION_COLUMN,
 )
 
 
@@ -58,6 +59,7 @@ def test_get_item_df(farcaster_casts_dataframe):
         assert item[AUTHOR_ID_COLUMN] == str(cast["fid"])
         assert item[PROTOCOL_COLUMN] == PROTOCOLS.farcaster.value
         assert item[APP_COLUMN] == str(cast["app_fid"])
+        assert item[LOCATION_COLUMN] == str(cast["location"])
         assert pd.Timestamp(item[ITEM_CREATION_TIME_COLUMN]).tz_convert(
             "UTC"
         ) == pd.Timestamp(cast["timestamp"]).tz_localize("UTC")
@@ -136,6 +138,7 @@ def test_get_interaction_df(farcaster_casts_dataframe, farcaster_reactions_dataf
         assert post[EDGE_TYPE_COLUMN] == "post"
         assert post[PROTOCOL_COLUMN] == PROTOCOLS.farcaster.value
         assert post[APP_COLUMN] == str(cast["app_fid"])
+        assert post[LOCATION_COLUMN] == str(cast["location"])
         assert pd.Timestamp(post[TIME_COLUMN]).tz_convert("UTC") == pd.Timestamp(
             cast["timestamp"]
         ).tz_localize("UTC")
@@ -158,6 +161,7 @@ def test_get_interaction_df(farcaster_casts_dataframe, farcaster_reactions_dataf
             assert comment[EDGE_TYPE_COLUMN] == "comment"
             assert comment[PROTOCOL_COLUMN] == PROTOCOLS.farcaster.value
             assert comment[APP_COLUMN] == str(cast["app_fid"])
+            assert comment[LOCATION_COLUMN] == str(cast["location"])
             assert pd.Timestamp(comment[TIME_COLUMN]).tz_convert("UTC") == pd.Timestamp(
                 cast["timestamp"]
             ).tz_localize("UTC")
@@ -184,6 +188,7 @@ def test_get_interaction_df(farcaster_casts_dataframe, farcaster_reactions_dataf
         assert react[EDGE_TYPE_COLUMN] == REACT_TYPE_MAP[reaction["reaction_type"]]
         assert react[PROTOCOL_COLUMN] == PROTOCOLS.farcaster.value
         assert react[APP_COLUMN] == str(reaction["app_fid"])
+        assert react[LOCATION_COLUMN] == str(reaction["location"])
         assert pd.Timestamp(react[TIME_COLUMN]).tz_convert("UTC") == pd.Timestamp(
             reaction["timestamp"]
         ).tz_localize("UTC")
@@ -213,3 +218,4 @@ def test_get_user_df(farcaster_users_dataframe):
         assert transformed[USER_PHOTO_URL_COLUMN] == user["avatar_url"]
         assert transformed[USER_NAME_COLUMN] == user["display_name"]
         assert transformed[APP_COLUMN] == [str(i) for i in user["app_fid"]]
+        assert transformed[LOCATION_COLUMN] == str(user["location"])

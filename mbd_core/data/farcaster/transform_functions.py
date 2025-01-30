@@ -33,6 +33,7 @@ from mbd_core.data.schema import (
     USER_PHOTO_URL_COLUMN,
     USER_PROFILE_COLUMN,
     USER_UPDATE_TIME_COLUMN,
+    LOCATION_COLUMN,
 )
 
 REACT_TYPE_MAP = {1: "like", 2: "share"}
@@ -74,6 +75,7 @@ def get_item_df(
     item_df[ITEM_CREATION_TIME_COLUMN] = item_df["timestamp"]
     item_df[ITEM_UPDATE_TIME_COLUMN] = item_df["timestamp"]
     item_df[APP_COLUMN] = item_df["app_fid"].astype(str)
+    item_df[LOCATION_COLUMN] = item_df["location"].astype(str)
     item_df = derive_root_item_column(item_df)
 
     # enrich url metadata
@@ -148,6 +150,7 @@ def get_item_df(
         EMBED_ITEMS_COLUMN,
         EMBED_USERS_COLUMN,
         APP_COLUMN,
+        LOCATION_COLUMN,
     ]
     if carry_columns:  # pragma: no cover
         selected_columns += carry_columns
@@ -162,6 +165,7 @@ def _format_interaction_df(interaction_df: pd.DataFrame) -> pd.DataFrame:
     interaction_df[USER_COLUMN] = interaction_df[USER_COLUMN].astype(str)
     interaction_df[PROTOCOL_COLUMN] = PROTOCOLS.farcaster.value
     interaction_df[APP_COLUMN] = interaction_df[APP_COLUMN].astype(str)
+    interaction_df[LOCATION_COLUMN] = interaction_df[LOCATION_COLUMN].astype(str)
     _format_timestamp(interaction_df, TIME_COLUMN)
     return interaction_df.reset_index(drop=True)
 
@@ -175,6 +179,7 @@ def get_post_comment_interaction_df(casts_df: pd.DataFrame) -> pd.DataFrame:
             "hash": ITEM_COLUMN,
             "timestamp": TIME_COLUMN,
             "app_fid": APP_COLUMN,
+            "location": LOCATION_COLUMN,
         }
     )
     publish_df[EDGE_TYPE_COLUMN] = "post"
@@ -188,6 +193,7 @@ def get_post_comment_interaction_df(casts_df: pd.DataFrame) -> pd.DataFrame:
             "parent_hash": ITEM_COLUMN,
             "timestamp": TIME_COLUMN,
             "app_fid": APP_COLUMN,
+            "location": LOCATION_COLUMN
         }
     )
     comment_df[EDGE_TYPE_COLUMN] = "comment"
@@ -206,6 +212,7 @@ def get_reaction_df(react_df: pd.DataFrame) -> pd.DataFrame:
             "timestamp": TIME_COLUMN,
             "reaction_type": EDGE_TYPE_COLUMN,
             "app_fid": APP_COLUMN,
+            "location": LOCATION_COLUMN
         }
     )
     react_df[EDGE_TYPE_COLUMN] = react_df[EDGE_TYPE_COLUMN].apply(
@@ -236,6 +243,7 @@ def get_user_df(user_df: pd.DataFrame) -> pd.DataFrame:
     user_df[USER_PHOTO_URL_COLUMN] = user_df["avatar_url"]
     user_df[USER_NAME_COLUMN] = user_df["display_name"]
     user_df[APP_COLUMN] = user_df["app_fid"].apply(lambda x: [str(i) for i in x])
+    user_df[LOCATION_COLUMN] = user_df["location"].astype(str)
     user_df = user_df[
         [
             USER_COLUMN,
@@ -247,6 +255,7 @@ def get_user_df(user_df: pd.DataFrame) -> pd.DataFrame:
             USER_NAME_COLUMN,
             USER_BIO_COLUMN,
             APP_COLUMN,
+            LOCATION_COLUMN,
         ]
     ].copy()
 
