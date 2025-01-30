@@ -11,7 +11,8 @@
         "target_hash": "ad9f55d5762f0938d46d5991b18083b2c17ee2d0",
         "target_fid": 839924,
         "target_url": null,
-        "app_fid": 9152
+        "app_fid": 9152,
+        "location": "geo:22.72,75.86"
     },
     {
         "id": 2044957483,
@@ -25,6 +26,7 @@
         "target_hash": "210eb6028f099578c57efd22c811be7b255da8b3",
         "target_fid": 865719,
         "target_url": null,
-        "app_fid": 9152
+        "app_fid": 9152,
+        "location": "geo:25.72,75.86"
     }
 ]

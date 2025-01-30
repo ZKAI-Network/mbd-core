@@ -173,7 +173,7 @@ def _format_interaction_df(interaction_df: pd.DataFrame) -> pd.DataFrame:
 def get_post_comment_interaction_df(casts_df: pd.DataFrame) -> pd.DataFrame:
     """Get post and comment interactions dataframe from casts dataframe."""
     ## publish interactions
-    publish_df = casts_df[["fid", "hash", "timestamp", "app_fid"]].rename(
+    publish_df = casts_df[["fid", "hash", "timestamp", "app_fid", "location"]].rename(
         columns={
             "fid": USER_COLUMN,
             "hash": ITEM_COLUMN,
@@ -186,7 +186,7 @@ def get_post_comment_interaction_df(casts_df: pd.DataFrame) -> pd.DataFrame:
 
     ## comment interactions
     comment_df = casts_df[casts_df["parent_hash"].notna()][
-        ["fid", "parent_hash", "timestamp", "app_fid"]
+        ["fid", "parent_hash", "timestamp", "app_fid", "location"]
     ].rename(
         columns={
             "fid": USER_COLUMN,
@@ -204,7 +204,7 @@ def get_post_comment_interaction_df(casts_df: pd.DataFrame) -> pd.DataFrame:
 def get_reaction_df(react_df: pd.DataFrame) -> pd.DataFrame:
     """Transform reaction dataframe from reaction dataframe."""
     react_df = react_df[react_df["target_hash"].notna()][
-        ["fid", "target_hash", "timestamp", "reaction_type", "app_fid"]
+        ["fid", "target_hash", "timestamp", "reaction_type", "app_fid", "location"]
     ].rename(
         columns={
             "fid": USER_COLUMN,
