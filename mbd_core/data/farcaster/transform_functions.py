@@ -20,6 +20,7 @@ from mbd_core.data.schema import (
     LANG_COLUMN,
     LANG_SCORE_COLUMN,
     LIST_COLUMN,
+    LOCATION_COLUMN,
     PROTOCOL_COLUMN,
     PROTOCOLS,
     PUBLICATION_TYPE_COLUMN,
@@ -33,7 +34,6 @@ from mbd_core.data.schema import (
     USER_PHOTO_URL_COLUMN,
     USER_PROFILE_COLUMN,
     USER_UPDATE_TIME_COLUMN,
-    LOCATION_COLUMN,
 )
 
 REACT_TYPE_MAP = {1: "like", 2: "share"}
@@ -193,7 +193,7 @@ def get_post_comment_interaction_df(casts_df: pd.DataFrame) -> pd.DataFrame:
             "parent_hash": ITEM_COLUMN,
             "timestamp": TIME_COLUMN,
             "app_fid": APP_COLUMN,
-            "location": LOCATION_COLUMN
+            "location": LOCATION_COLUMN,
         }
     )
     comment_df[EDGE_TYPE_COLUMN] = "comment"
@@ -212,7 +212,7 @@ def get_reaction_df(react_df: pd.DataFrame) -> pd.DataFrame:
             "timestamp": TIME_COLUMN,
             "reaction_type": EDGE_TYPE_COLUMN,
             "app_fid": APP_COLUMN,
-            "location": LOCATION_COLUMN
+            "location": LOCATION_COLUMN,
         }
     )
     react_df[EDGE_TYPE_COLUMN] = react_df[EDGE_TYPE_COLUMN].apply(

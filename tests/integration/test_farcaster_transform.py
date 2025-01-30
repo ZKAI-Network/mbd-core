@@ -23,6 +23,7 @@ from mbd_core.data.schema import (
     ITEM_UPDATE_TIME_COLUMN,
     LANG_COLUMN,
     LANG_SCORE_COLUMN,
+    LOCATION_COLUMN,
     PROTOCOL_COLUMN,
     PROTOCOLS,
     PUBLICATION_TYPE_COLUMN,
@@ -36,7 +37,6 @@ from mbd_core.data.schema import (
     USER_PHOTO_URL_COLUMN,
     USER_PROFILE_COLUMN,
     USER_UPDATE_TIME_COLUMN,
-    LOCATION_COLUMN,
 )
 
 
