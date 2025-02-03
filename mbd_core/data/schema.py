@@ -50,6 +50,7 @@ EDGE_TYPE_COLUMN = "event_type"
 EVENT_VALUE_COLUMN = "event_value"
 PROTOCOL_COLUMN = "protocol"
 APP_COLUMN = "app"
+LOCATION_COLUMN = "location"
 CONTEXT_COLUMN = "context"
 DEFAULT_EVENT_VALUE = 1.0
 
@@ -67,6 +68,7 @@ INTERACTION_SCHEMA = pa.DataFrameSchema(
         ),
         APP_COLUMN: pa.Column(str, nullable=True, required=False),
         CONTEXT_COLUMN: pa.Column(str, nullable=True, required=False),
+        LOCATION_COLUMN: pa.Column(str, nullable=True, required=False),
     },
     strict=False,
 )
@@ -111,6 +113,7 @@ ITEM_META_SCHEMA = pa.DataFrameSchema(
         LIST_COLUMN: pa.Column(list[str], nullable=True, required=False),
         EMBED_ITEMS_COLUMN: pa.Column(list[str], nullable=True, required=False),
         EMBED_USERS_COLUMN: pa.Column(list[str], nullable=True, required=False),
+        LOCATION_COLUMN: pa.Column(str, nullable=True, required=False),
     },
     strict=False,
 )
@@ -140,6 +143,7 @@ USER_META_SCHEMA = pa.DataFrameSchema(
         USER_PHOTO_URL_COLUMN: pa.Column(str, nullable=True, required=False),
         USER_NAME_COLUMN: pa.Column(str, nullable=True, required=False),
         USER_BIO_COLUMN: pa.Column(str, nullable=True, required=False),
+        LOCATION_COLUMN: pa.Column(str, nullable=True, required=False),
     },
     strict=False,
 )
@@ -170,6 +174,7 @@ USER_INTERACTION_SCHEMA = pa.DataFrameSchema(
             str, checks=pa.Check.isin([prc.value for prc in PROTOCOLS])
         ),
         APP_COLUMN: pa.Column(str, nullable=True, required=False),
+        LOCATION_COLUMN: pa.Column(str, nullable=True, required=False),
     },
     strict=False,
 )
