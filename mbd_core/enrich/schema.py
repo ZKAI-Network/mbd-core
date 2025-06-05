@@ -25,6 +25,7 @@ EMBED_ITEM_TYPE_LIST_COLUMN = "embed_item_type_list"
 
 USER_SEM_EMBED_COLUMN = "user_sem_embed"
 
+URL_METADATA_COLUMN = "url_metadata"
 
 def _check_sequence(x: pd.Series) -> bool:
     return cast(bool, x.apply(lambda x: isinstance(x, (np.ndarray | list))).all())
