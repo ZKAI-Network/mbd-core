@@ -25,6 +25,11 @@ EMBED_ITEM_TYPE_LIST_COLUMN = "embed_item_type_list"
 
 USER_SEM_EMBED_COLUMN = "user_sem_embed"
 
+VIDEO_ORIENTATIONS_COLUMN="video_orientations"
+VIDEO_DURATION_MIN_COLUMN="video_duration_min"
+VIDEO_DURATION_MAX_COLUMN="video_duration_max"
+VIDEO_LANGUAGES_COLUMN="video_languages"
+MINIAPP_CATEGORIES_COLUMN="miniapp_categories"
 
 def _check_sequence(x: pd.Series) -> bool:
     return cast(bool, x.apply(lambda x: isinstance(x, (np.ndarray | list))).all())
