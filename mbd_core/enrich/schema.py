@@ -30,6 +30,7 @@ VIDEO_DURATION_MIN_COLUMN = "video_duration_min"
 VIDEO_DURATION_MAX_COLUMN = "video_duration_max"
 VIDEO_LANGUAGES_COLUMN = "video_languages"
 MINIAPP_CATEGORIES_COLUMN = "miniapp_categories"
+ITEM_ENRICH_MODEL_SCORES_COLUMN = "item_enrich_model_scores"
 
 
 def _check_sequence(x: pd.Series) -> bool:
