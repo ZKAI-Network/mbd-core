@@ -19,6 +19,7 @@ from mbd_core.enrich.labelling.load_config import load_label_columns
 LABEL_COLUMNS = load_label_columns()
 
 ITEM_SEM_EMBED_COLUMN = "item_sem_embed"
+ITEM_SEM_EMBED2_COLUMN = "item_sem_embed2"
 ITEM_AI_LABELS_COLUMN = "ai_labels"
 EMBED_ITEM_TYPES_COLUMN = "embed_item_types"
 EMBED_ITEM_TYPE_LIST_COLUMN = "embed_item_type_list"
