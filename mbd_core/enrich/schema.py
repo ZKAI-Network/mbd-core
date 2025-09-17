@@ -21,6 +21,9 @@ LABEL_COLUMNS = load_label_columns()
 ITEM_SEM_EMBED_COLUMN = "item_sem_embed"
 ITEM_SEM_EMBED2_COLUMN = "item_sem_embed2"
 ITEM_AI_LABELS_COLUMN = "ai_labels"
+ITEM_AI_LABELS_LOW_COLUMN = "ai_labels_low"
+ITEM_AI_LABELS_MED_COLUMN = "ai_labels_med"
+ITEM_AI_LABELS_HIGH_COLUMN = "ai_labels_high"
 EMBED_ITEM_TYPES_COLUMN = "embed_item_types"
 EMBED_ITEM_TYPE_LIST_COLUMN = "embed_item_type_list"
 
