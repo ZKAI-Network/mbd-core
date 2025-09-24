@@ -26,15 +26,18 @@ ITEM_AI_LABELS_MED_COLUMN = "ai_labels_med"
 ITEM_AI_LABELS_HIGH_COLUMN = "ai_labels_high"
 EMBED_ITEM_TYPES_COLUMN = "embed_item_types"
 EMBED_ITEM_TYPE_LIST_COLUMN = "embed_item_type_list"
-
-USER_SEM_EMBED_COLUMN = "user_sem_embed"
-
 VIDEO_ORIENTATIONS_COLUMN = "video_orientations"
 VIDEO_DURATION_MIN_COLUMN = "video_duration_min"
 VIDEO_DURATION_MAX_COLUMN = "video_duration_max"
 VIDEO_LANGUAGES_COLUMN = "video_languages"
 MINIAPP_CATEGORIES_COLUMN = "miniapp_categories"
 ITEM_ENRICH_MODEL_SCORES_COLUMN = "item_enrich_model_scores"
+ITEM_LIKE_SCORE_COLUMN = "like_score"
+ITEM_SHARE_SCORE_COLUMN = "share_score"
+ITEM_CLUSTER_ID_COLUMN = "cluster_id"
+
+
+USER_SEM_EMBED_COLUMN = "user_sem_embed"
 
 
 def _check_sequence(x: pd.Series) -> bool:
