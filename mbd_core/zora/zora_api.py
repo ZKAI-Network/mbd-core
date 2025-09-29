@@ -1,6 +1,7 @@
 import requests
 import time
 import os
+import pandas as pd
 
 
 ZORA_API_KEY = os.getenv("ZORA_API_KEY")
