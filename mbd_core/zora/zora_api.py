@@ -1,5 +1,6 @@
 """Zora API utils functions."""
 
+import datetime
 import os
 import time
 from typing import Any
@@ -181,4 +182,5 @@ def parse_info(node: dict[str, Any]) -> dict[str, Any]:
         schema.ZORA_MEDIA_CONTENT_URL: _parse_media_content_url(node),
         schema.ZORA_PREVIEW_SMALL_URL: _parse_preview_small_url(node),
         schema.ZORA_PREVIEW_MEDIUM_URL: _parse_preview_medium_url(node),
+        schema.ZORA_UPDATED_AT: datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
     }
