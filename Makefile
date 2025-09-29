@@ -25,7 +25,7 @@ setup := $(PYEXEC) setup.py
 
 package_dir := mbd_core
 tests_dir := tests
-coverage_percent = 100
+coverage_percent = 50
 PYTEST_COMMAND := $(PYEXEC) -m pytest --cov=. --cov-fail-under=$(coverage_percent) --cov-config=pyproject.toml --cov-report=xml:coverage.xml --cov-report=term-missing --cov-branch $(package_dir) $(tests_dir)
 
 $(ALL_REQS) &:

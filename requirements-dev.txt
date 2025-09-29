@@ -14,8 +14,6 @@ astroid==2.15.8
     # via
     #   -r requirements-dev/docs.in
     #   sphinx-autoapi
-async-timeout==5.0.1
-    # via aiohttp
 attrs==24.3.0
     # via aiohttp
 babel==2.16.0
@@ -38,8 +36,6 @@ docutils==0.16
     #   sphinx-rtd-theme
 emoji==2.14.1
     # via -r requirements.in
-exceptiongroup==1.2.2
-    # via pytest
 fasttext==0.9.3
     # via fasttext-langdetect
 fasttext-langdetect==1.0.5
@@ -202,17 +198,15 @@ sphinxcontrib-serializinghtml==2.0.0
 termcolor==2.5.0
     # via pytest-sugar
 tomli==2.2.1
-    # via
-    #   -r requirements-dev/misc.in
-    #   coverage
-    #   mypy
-    #   pytest
+    # via -r requirements-dev/misc.in
 typeguard==4.4.1
     # via pandera
+types-requests==2.31.0.6
+    # via -r requirements.in
+types-urllib3==1.26.25.14
+    # via types-requests
 typing-extensions==4.12.2
     # via
-    #   astroid
-    #   multidict
     #   mypy
     #   pydantic
     #   pydantic-core
