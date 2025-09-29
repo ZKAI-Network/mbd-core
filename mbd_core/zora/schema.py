@@ -1,3 +1,5 @@
+"""Zora API schema constants for data field names."""
+
 ZORA_COIN_ID = "zora_coin_id"
 ZORA_COIN_URI = "zora_token_uri"
 ZORA_CHAIN_ID = "zora_chain_id"

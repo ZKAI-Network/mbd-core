@@ -21,42 +21,42 @@ def _parse_farcaster_id(node):
             .get("farcaster", {})
             .get("id")
         )
-    except:
+    except (KeyError, TypeError, AttributeError):
         return None
 
 
 def _parse_price_in_usdc(node):
     try:
         return node.get("tokenPrice", {}).get("priceInUsdc")
-    except:
+    except (KeyError, TypeError, AttributeError):
         return None
 
 
 def _parse_media_content_type(node):
     try:
         return node.get("mediaContent", {}).get("mimeType")
-    except:
+    except (KeyError, TypeError, AttributeError):
         return None
 
 
 def _parse_media_content_url(node):
     try:
         return node.get("mediaContent", {}).get("originalUri")
-    except:
+    except (KeyError, TypeError, AttributeError):
         return None
 
 
 def _parse_preview_small_url(node):
     try:
         return node.get("mediaContent", {}).get("previewImage", {}).get("small")
-    except:
+    except (KeyError, TypeError, AttributeError):
         return None
 
 
 def _parse_preview_medium_url(node):
     try:
         return node.get("mediaContent", {}).get("previewImage", {}).get("medium")
-    except:
+    except (KeyError, TypeError, AttributeError):
         return None
 
 
@@ -95,7 +95,7 @@ def _make_explore_api_call(array, list_type, last_cursor):
     if last_cursor:
         url = url + f"&after={last_cursor}"
     headers = {"apiKey": ZORA_API_KEY}
-    response = requests.get(url, headers=headers).json()
+    response = requests.get(url, headers=headers, timeout=30).json()
     if "exploreList" not in response:
         return 0, False, None
     has_next_page = response["exploreList"]["pageInfo"]["hasNextPage"]
@@ -107,6 +107,16 @@ def _make_explore_api_call(array, list_type, last_cursor):
 
 
 def explore(list_type, max_api_calls=MAX_API_CALLS, max_polling_time=MAX_POLLING_TIME):
+    """Explore Zora API and return a DataFrame with parsed data.
+
+    Args:
+        list_type: Type of list to explore from Zora API
+        max_api_calls: Maximum number of API calls to make (default: 250)
+        max_polling_time: Maximum time to spend polling in seconds (default: 180)
+
+    Returns:
+        tuple: (DataFrame with parsed data, list of log messages)
+    """
     start_time = time.time()
     array = []
     has_next_page = True
