@@ -112,6 +112,7 @@ def explore(list_type, max_api_calls=MAX_API_CALLS, max_polling_time=MAX_POLLING
     has_next_page = True
     last_cursor = None
     num_calls = 0
+    logs = []
     while (
         has_next_page
         and num_calls < max_api_calls
@@ -120,11 +121,11 @@ def explore(list_type, max_api_calls=MAX_API_CALLS, max_polling_time=MAX_POLLING
         if num_calls > 0:
             time.sleep(WAIT_BETWEEN_CALLS)
         num_calls += 1
-        print(f"call to Zora API:{num_calls}")
+        logs.append(f"call to Zora API:{num_calls}")
         num_rows, has_next_page, last_cursor = make_explore_api_call(
             array, list_type, last_cursor
         )
-        print(f"num_rows:{num_rows} has_next_page:{has_next_page}")
-    print(f"Finished polling Zora API. Total records pulled: {len(array)}")
-    print(f"Time taken to pull data: {time.time() - start_time} seconds")
-    return pd.DataFrame(array)
+        logs.append(f"num_rows:{num_rows} has_next_page:{has_next_page}")
+    logs.append(f"Finished polling Zora API. Total records pulled: {len(array)}")
+    logs.append(f"Time taken to pull data: {time.time() - start_time} seconds")
+    return pd.DataFrame(array), logs
