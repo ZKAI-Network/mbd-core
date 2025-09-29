@@ -11,6 +11,7 @@ from mbd_core.zora import schema
 
 ZORA_API_KEY = os.getenv("ZORA_API_KEY")
 EXPLORE_URL = "https://api-sdk.zora.engineering/explore?count=10"
+COIN_URL = "https://api-sdk.zora.engineering/coin"
 WAIT_BETWEEN_CALLS = 0.100
 MAX_API_CALLS = 250
 MAX_POLLING_TIME = 180
@@ -170,3 +171,12 @@ def explore(
     logs.append(f"Finished polling Zora API. Total records pulled: {len(array)}")
     logs.append(f"Time taken to pull data: {time.time() - start_time} seconds")
     return pd.DataFrame(array), logs
+
+
+def get_coin(address: str, chain_id: int = 8453) -> dict[str, Any] | None:
+    url = COIN_URL + f"?address={address}&chain={chain_id}"
+    headers: dict[str, str] = {"apiKey": ZORA_API_KEY or ""}
+    response = requests.get(url, headers=headers, timeout=30).json()
+    if "zora20Token" not in response:
+        return None
+    return _parse_node(response["zora20Token"])
