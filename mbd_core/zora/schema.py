@@ -1,5 +1,5 @@
 ZORA_COIN_ID = "zora_coin_id"
-ZORA_TOKEN_URI = "zora_token_uri"
+ZORA_COIN_URI = "zora_token_uri"
 ZORA_CHAIN_ID = "zora_chain_id"
 ZORA_NAME = "zora_name"
 ZORA_DESCRIPTION = "zora_description"
