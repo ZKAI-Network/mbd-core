@@ -1,13 +1,11 @@
-import requests
-import time
 import os
-import pandas as pd
+import time
 
+import pandas as pd
+import requests
 
 ZORA_API_KEY = os.getenv("ZORA_API_KEY")
-EXPLORE_URL = (
-    "https://api-sdk.zora.engineering/explore?count=10"
-)
+EXPLORE_URL = "https://api-sdk.zora.engineering/explore?count=10"
 WAIT_BETWEEN_CALLS = 0.100
 MAX_API_CALLS = 250
 MAX_POLLING_TIME = 180
@@ -121,7 +119,9 @@ def explore(list_type, max_api_calls=MAX_API_CALLS, max_polling_time=MAX_POLLING
             time.sleep(WAIT_BETWEEN_CALLS)
         num_calls += 1
         print(f"call to Zora API:{num_calls}")
-        num_rows, has_next_page, last_cursor = make_explore_api_call(array, list_type, last_cursor)
+        num_rows, has_next_page, last_cursor = make_explore_api_call(
+            array, list_type, last_cursor
+        )
         print(f"num_rows:{num_rows} has_next_page:{has_next_page}")
     print(f"Finished polling Zora API. Total records pulled: {len(array)}")
     print(f"Time taken to pull data: {time.time() - start_time} seconds")
