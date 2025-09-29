@@ -86,34 +86,6 @@ def _parse_preview_medium_url(node: dict[str, Any]) -> str | None:
         return None
 
 
-def _parse_node(node: dict[str, Any]) -> dict[str, Any]:
-    return {
-        schema.ZORA_COIN_ID: node.get("id"),
-        schema.ZORA_COIN_URI: node.get("tokenUri"),
-        schema.ZORA_CHAIN_ID: node.get("chainId"),
-        schema.ZORA_NAME: node.get("name"),
-        schema.ZORA_DESCRIPTION: node.get("description"),
-        schema.ZORA_ADDRESS: node.get("address"),
-        schema.ZORA_SYMBOL: node.get("symbol"),
-        schema.ZORA_TOTAL_SUPPLY: _parse_float(node, "totalSupply"),
-        schema.ZORA_TOTAL_VOLUME: _parse_float(node, "totalVolume"),
-        schema.ZORA_VOLUME_24H: _parse_float(node, "volume24h"),
-        schema.ZORA_CREATED_AT: node.get("createdAt"),
-        schema.ZORA_CREATOR_ADDRESS: node.get("creatorAddress"),
-        schema.ZORA_PRICE_IN_USDC: _parse_price_in_usdc(node),
-        schema.ZORA_MARKET_CAP: _parse_float(node, "marketCap"),
-        schema.ZORA_MARKET_CAP_DELTA_24H: _parse_float(node, "marketCapDelta24h"),
-        schema.ZORA_UNIQUE_HOLDERS: _parse_int(node, "uniqueHolders"),
-        schema.ZORA_PLATFORM_REFERRER_ADDRESS: node.get("platformReferrerAddress"),
-        schema.ZORA_PAYOUT_RECIPIENT_ADDRESS: node.get("payoutRecipientAddress"),
-        schema.ZORA_CREATOR_FARCASTER_ID: _parse_farcaster_id(node),
-        schema.ZORA_MEDIA_CONTENT_TYPE: _parse_media_content_type(node),
-        schema.ZORA_MEDIA_CONTENT_URL: _parse_media_content_url(node),
-        schema.ZORA_PREVIEW_SMALL_URL: _parse_preview_small_url(node),
-        schema.ZORA_PREVIEW_MEDIUM_URL: _parse_preview_medium_url(node),
-    }
-
-
 def _make_explore_api_call(
     array: list[dict[str, Any]], list_type: str | None, last_cursor: str | None
 ) -> tuple[int, bool, str | None]:
@@ -129,7 +101,7 @@ def _make_explore_api_call(
     has_next_page = response["exploreList"]["pageInfo"]["hasNextPage"]
     cursor = response["exploreList"]["pageInfo"]["endCursor"]
     nodes = [x["node"] for x in response["exploreList"]["edges"]]
-    parsed = [_parse_node(node) for node in nodes]
+    parsed = [parse_info(node) for node in nodes]
     array.extend(parsed)
     return len(parsed), has_next_page, cursor
 
@@ -174,9 +146,39 @@ def explore(
 
 
 def get_coin(address: str, chain_id: int = 8453) -> dict[str, Any] | None:
+    """Get Zora coin data from Zora API."""
     url = COIN_URL + f"?address={address}&chain={chain_id}"
     headers: dict[str, str] = {"apiKey": ZORA_API_KEY or ""}
     response = requests.get(url, headers=headers, timeout=30).json()
     if "zora20Token" not in response:
         return None
-    return _parse_node(response["zora20Token"])
+    return parse_info(response["zora20Token"])
+
+
+def parse_info(node: dict[str, Any]) -> dict[str, Any]:
+    """Parse Zora coin data."""
+    return {
+        schema.ZORA_COIN_ID: node.get("id"),
+        schema.ZORA_COIN_URI: node.get("tokenUri"),
+        schema.ZORA_CHAIN_ID: node.get("chainId"),
+        schema.ZORA_NAME: node.get("name"),
+        schema.ZORA_DESCRIPTION: node.get("description"),
+        schema.ZORA_ADDRESS: node.get("address"),
+        schema.ZORA_SYMBOL: node.get("symbol"),
+        schema.ZORA_TOTAL_SUPPLY: _parse_float(node, "totalSupply"),
+        schema.ZORA_TOTAL_VOLUME: _parse_float(node, "totalVolume"),
+        schema.ZORA_VOLUME_24H: _parse_float(node, "volume24h"),
+        schema.ZORA_CREATED_AT: node.get("createdAt"),
+        schema.ZORA_CREATOR_ADDRESS: node.get("creatorAddress"),
+        schema.ZORA_PRICE_IN_USDC: _parse_price_in_usdc(node),
+        schema.ZORA_MARKET_CAP: _parse_float(node, "marketCap"),
+        schema.ZORA_MARKET_CAP_DELTA_24H: _parse_float(node, "marketCapDelta24h"),
+        schema.ZORA_UNIQUE_HOLDERS: _parse_int(node, "uniqueHolders"),
+        schema.ZORA_PLATFORM_REFERRER_ADDRESS: node.get("platformReferrerAddress"),
+        schema.ZORA_PAYOUT_RECIPIENT_ADDRESS: node.get("payoutRecipientAddress"),
+        schema.ZORA_CREATOR_FARCASTER_ID: _parse_farcaster_id(node),
+        schema.ZORA_MEDIA_CONTENT_TYPE: _parse_media_content_type(node),
+        schema.ZORA_MEDIA_CONTENT_URL: _parse_media_content_url(node),
+        schema.ZORA_PREVIEW_SMALL_URL: _parse_preview_small_url(node),
+        schema.ZORA_PREVIEW_MEDIUM_URL: _parse_preview_medium_url(node),
+    }
