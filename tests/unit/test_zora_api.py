@@ -1,12 +1,6 @@
 """Tests for Zora API functions."""
 
-import os
-import time
 from unittest.mock import Mock, patch
-
-import pandas as pd
-import pytest
-import requests
 
 from mbd_core.zora import schema
 from mbd_core.zora.zora_api import (
@@ -77,27 +71,15 @@ class TestParsingFunctions:
 
     def test_parse_price_in_usdc_valid(self):
         """Test _parse_price_in_usdc with valid price data."""
-        node = {
-            "tokenPrice": {
-                "priceInUsdc": "123.45"
-            }
-        }
+        node = {"tokenPrice": {"priceInUsdc": "123.45"}}
         assert _parse_price_in_usdc(node) == 123.45
 
     def test_parse_price_in_usdc_invalid(self):
         """Test _parse_price_in_usdc with invalid data."""
-        node = {
-            "tokenPrice": {
-                "priceInUsdc": "invalid"
-            }
-        }
+        node = {"tokenPrice": {"priceInUsdc": "invalid"}}
         assert _parse_price_in_usdc(node) is None
 
-        node = {
-            "tokenPrice": {
-                "priceInUsdc": None
-            }
-        }
+        node = {"tokenPrice": {"priceInUsdc": None}}
         assert _parse_price_in_usdc(node) is None
 
         node = {}
@@ -114,28 +96,12 @@ class TestParsingFunctions:
 
     def test_parse_farcaster_id_valid(self):
         """Test _parse_farcaster_id with valid data."""
-        node = {
-            "creatorProfile": {
-                "socialAccounts": {
-                    "farcaster": {
-                        "id": "12345"
-                    }
-                }
-            }
-        }
+        node = {"creatorProfile": {"socialAccounts": {"farcaster": {"id": "12345"}}}}
         assert _parse_farcaster_id(node) == "12345"
 
     def test_parse_farcaster_id_invalid(self):
         """Test _parse_farcaster_id with invalid data."""
-        node = {
-            "creatorProfile": {
-                "socialAccounts": {
-                    "farcaster": {
-                        "id": None
-                    }
-                }
-            }
-        }
+        node = {"creatorProfile": {"socialAccounts": {"farcaster": {"id": None}}}}
         assert _parse_farcaster_id(node) is None
 
         node = {}
@@ -152,20 +118,12 @@ class TestParsingFunctions:
 
     def test_parse_media_content_type_valid(self):
         """Test _parse_media_content_type with valid data."""
-        node = {
-            "mediaContent": {
-                "mimeType": "image/jpeg"
-            }
-        }
+        node = {"mediaContent": {"mimeType": "image/jpeg"}}
         assert _parse_media_content_type(node) == "image/jpeg"
 
     def test_parse_media_content_type_invalid(self):
         """Test _parse_media_content_type with invalid data."""
-        node = {
-            "mediaContent": {
-                "mimeType": None
-            }
-        }
+        node = {"mediaContent": {"mimeType": None}}
         assert _parse_media_content_type(node) is None
 
         node = {}
@@ -182,20 +140,12 @@ class TestParsingFunctions:
 
     def test_parse_media_content_url_valid(self):
         """Test _parse_media_content_url with valid data."""
-        node = {
-            "mediaContent": {
-                "originalUri": "https://example.com/image.jpg"
-            }
-        }
+        node = {"mediaContent": {"originalUri": "https://example.com/image.jpg"}}
         assert _parse_media_content_url(node) == "https://example.com/image.jpg"
 
     def test_parse_media_content_url_invalid(self):
         """Test _parse_media_content_url with invalid data."""
-        node = {
-            "mediaContent": {
-                "originalUri": None
-            }
-        }
+        node = {"mediaContent": {"originalUri": None}}
         assert _parse_media_content_url(node) is None
 
         node = {}
@@ -213,23 +163,13 @@ class TestParsingFunctions:
     def test_parse_preview_small_url_valid(self):
         """Test _parse_preview_small_url with valid data."""
         node = {
-            "mediaContent": {
-                "previewImage": {
-                    "small": "https://example.com/small.jpg"
-                }
-            }
+            "mediaContent": {"previewImage": {"small": "https://example.com/small.jpg"}}
         }
         assert _parse_preview_small_url(node) == "https://example.com/small.jpg"
 
     def test_parse_preview_small_url_invalid(self):
         """Test _parse_preview_small_url with invalid data."""
-        node = {
-            "mediaContent": {
-                "previewImage": {
-                    "small": None
-                }
-            }
-        }
+        node = {"mediaContent": {"previewImage": {"small": None}}}
         assert _parse_preview_small_url(node) is None
 
         node = {}
@@ -248,22 +188,14 @@ class TestParsingFunctions:
         """Test _parse_preview_medium_url with valid data."""
         node = {
             "mediaContent": {
-                "previewImage": {
-                    "medium": "https://example.com/medium.jpg"
-                }
+                "previewImage": {"medium": "https://example.com/medium.jpg"}
             }
         }
         assert _parse_preview_medium_url(node) == "https://example.com/medium.jpg"
 
     def test_parse_preview_medium_url_invalid(self):
         """Test _parse_preview_medium_url with invalid data."""
-        node = {
-            "mediaContent": {
-                "previewImage": {
-                    "medium": None
-                }
-            }
-        }
+        node = {"mediaContent": {"previewImage": {"medium": None}}}
         assert _parse_preview_medium_url(node) is None
 
         node = {}
@@ -303,19 +235,15 @@ class TestParseNode:
             "uniqueHolders": "100",
             "platformReferrerAddress": "0x789",
             "payoutRecipientAddress": "0xabc",
-            "creatorProfile": {
-                "socialAccounts": {
-                    "farcaster": {"id": "farcaster123"}
-                }
-            },
+            "creatorProfile": {"socialAccounts": {"farcaster": {"id": "farcaster123"}}},
             "mediaContent": {
                 "mimeType": "image/jpeg",
                 "originalUri": "https://example.com/image.jpg",
                 "previewImage": {
                     "small": "https://example.com/small.jpg",
-                    "medium": "https://example.com/medium.jpg"
-                }
-            }
+                    "medium": "https://example.com/medium.jpg",
+                },
+            },
         }
 
         result = _parse_node(node)
@@ -342,7 +270,9 @@ class TestParseNode:
         assert result[schema.ZORA_MEDIA_CONTENT_TYPE] == "image/jpeg"
         assert result[schema.ZORA_MEDIA_CONTENT_URL] == "https://example.com/image.jpg"
         assert result[schema.ZORA_PREVIEW_SMALL_URL] == "https://example.com/small.jpg"
-        assert result[schema.ZORA_PREVIEW_MEDIUM_URL] == "https://example.com/medium.jpg"
+        assert (
+            result[schema.ZORA_PREVIEW_MEDIUM_URL] == "https://example.com/medium.jpg"
+        )
 
     def test_parse_node_minimal(self):
         """Test _parse_node with minimal data."""
@@ -378,36 +308,25 @@ class TestParseNode:
 class TestMakeExploreApiCall:
     """Test the _make_explore_api_call function."""
 
-    @patch('mbd_core.zora.zora_api.requests.get')
+    @patch("mbd_core.zora.zora_api.requests.get")
     def test_make_explore_api_call_success(self, mock_get):
         """Test successful API call."""
         mock_response = Mock()
         mock_response.json.return_value = {
             "exploreList": {
-                "pageInfo": {
-                    "hasNextPage": True,
-                    "endCursor": "cursor123"
-                },
+                "pageInfo": {"hasNextPage": True, "endCursor": "cursor123"},
                 "edges": [
-                    {
-                        "node": {
-                            "id": "coin1",
-                            "name": "Coin 1"
-                        }
-                    },
-                    {
-                        "node": {
-                            "id": "coin2",
-                            "name": "Coin 2"
-                        }
-                    }
-                ]
+                    {"node": {"id": "coin1", "name": "Coin 1"}},
+                    {"node": {"id": "coin2", "name": "Coin 2"}},
+                ],
             }
         }
         mock_get.return_value = mock_response
 
         array = []
-        num_rows, has_next_page, cursor = _make_explore_api_call(array, "trending", "prev_cursor")
+        num_rows, has_next_page, cursor = _make_explore_api_call(
+            array, "trending", "prev_cursor"
+        )
 
         assert num_rows == 2
         assert has_next_page is True
@@ -422,7 +341,7 @@ class TestMakeExploreApiCall:
         assert "listType=trending" in call_args[0][0]
         assert "after=prev_cursor" in call_args[0][0]
 
-    @patch('mbd_core.zora.zora_api.requests.get')
+    @patch("mbd_core.zora.zora_api.requests.get")
     def test_make_explore_api_call_no_explore_list(self, mock_get):
         """Test API call with missing exploreList."""
         mock_response = Mock()
@@ -437,17 +356,14 @@ class TestMakeExploreApiCall:
         assert cursor is None
         assert len(array) == 0
 
-    @patch('mbd_core.zora.zora_api.requests.get')
+    @patch("mbd_core.zora.zora_api.requests.get")
     def test_make_explore_api_call_no_list_type(self, mock_get):
         """Test API call without list_type."""
         mock_response = Mock()
         mock_response.json.return_value = {
             "exploreList": {
-                "pageInfo": {
-                    "hasNextPage": False,
-                    "endCursor": None
-                },
-                "edges": []
+                "pageInfo": {"hasNextPage": False, "endCursor": None},
+                "edges": [],
             }
         }
         mock_get.return_value = mock_response
@@ -470,9 +386,9 @@ class TestMakeExploreApiCall:
 class TestExplore:
     """Test the explore function."""
 
-    @patch('mbd_core.zora.zora_api._make_explore_api_call')
-    @patch('mbd_core.zora.zora_api.time.sleep')
-    @patch('mbd_core.zora.zora_api.time.time')
+    @patch("mbd_core.zora.zora_api._make_explore_api_call")
+    @patch("mbd_core.zora.zora_api.time.sleep")
+    @patch("mbd_core.zora.zora_api.time.time")
     def test_explore_single_page(self, mock_time, mock_sleep, mock_api_call):
         """Test explore with single page of results."""
         mock_time.side_effect = [0, 1]  # start_time, then time.time() in loop
@@ -490,15 +406,15 @@ class TestExplore:
         mock_api_call.assert_called_once_with([], "trending", None)
         mock_sleep.assert_not_called()
 
-    @patch('mbd_core.zora.zora_api._make_explore_api_call')
-    @patch('mbd_core.zora.zora_api.time.sleep')
-    @patch('mbd_core.zora.zora_api.time.time')
+    @patch("mbd_core.zora.zora_api._make_explore_api_call")
+    @patch("mbd_core.zora.zora_api.time.sleep")
+    @patch("mbd_core.zora.zora_api.time.time")
     def test_explore_multiple_pages(self, mock_time, mock_sleep, mock_api_call):
         """Test explore with multiple pages."""
         mock_time.side_effect = [0, 1, 2, 3]  # start_time, then time.time() in loop
         mock_api_call.side_effect = [
-            (5, True, "cursor1"),   # First call
-            (3, False, None)        # Second call
+            (5, True, "cursor1"),  # First call
+            (3, False, None),  # Second call
         ]
 
         df, logs = explore("trending", max_api_calls=10, max_polling_time=60)
@@ -515,12 +431,19 @@ class TestExplore:
         mock_api_call.assert_any_call([], "trending", "cursor1")
         mock_sleep.assert_called_once()
 
-    @patch('mbd_core.zora.zora_api._make_explore_api_call')
-    @patch('mbd_core.zora.zora_api.time.sleep')
-    @patch('mbd_core.zora.zora_api.time.time')
+    @patch("mbd_core.zora.zora_api._make_explore_api_call")
+    @patch("mbd_core.zora.zora_api.time.sleep")
+    @patch("mbd_core.zora.zora_api.time.time")
     def test_explore_max_calls_reached(self, mock_time, mock_sleep, mock_api_call):
         """Test explore when max_api_calls is reached."""
-        mock_time.side_effect = [0, 1, 2, 3, 4, 5]  # start_time, then time.time() in loop
+        mock_time.side_effect = [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+        ]  # start_time, then time.time() in loop
         mock_api_call.return_value = (5, True, "cursor")  # Always has next page
 
         df, logs = explore("trending", max_api_calls=3, max_polling_time=60)
@@ -530,12 +453,19 @@ class TestExplore:
         assert mock_api_call.call_count == 3
         assert mock_sleep.call_count == 2  # Sleep between calls (not before first)
 
-    @patch('mbd_core.zora.zora_api._make_explore_api_call')
-    @patch('mbd_core.zora.zora_api.time.sleep')
-    @patch('mbd_core.zora.zora_api.time.time')
-    def test_explore_max_polling_time_reached(self, mock_time, mock_sleep, mock_api_call):
+    @patch("mbd_core.zora.zora_api._make_explore_api_call")
+    @patch("mbd_core.zora.zora_api.time.sleep")
+    @patch("mbd_core.zora.zora_api.time.time")
+    def test_explore_max_polling_time_reached(
+        self, mock_time, mock_sleep, mock_api_call
+    ):
         """Test explore when max_polling_time is reached."""
-        mock_time.side_effect = [0, 1, 61, 62]  # start_time, then time.time() in loop (exceeds 60s)
+        mock_time.side_effect = [
+            0,
+            1,
+            61,
+            62,
+        ]  # start_time, then time.time() in loop (exceeds 60s)
         mock_api_call.return_value = (5, True, "cursor")  # Always has next page
 
         df, logs = explore("trending", max_api_calls=10, max_polling_time=60)
@@ -545,9 +475,9 @@ class TestExplore:
         assert mock_api_call.call_count == 1
         assert "Time taken to pull data: 61.0 seconds" in logs[2]
 
-    @patch('mbd_core.zora.zora_api._make_explore_api_call')
-    @patch('mbd_core.zora.zora_api.time.sleep')
-    @patch('mbd_core.zora.zora_api.time.time')
+    @patch("mbd_core.zora.zora_api._make_explore_api_call")
+    @patch("mbd_core.zora.zora_api.time.sleep")
+    @patch("mbd_core.zora.zora_api.time.time")
     def test_explore_default_parameters(self, mock_time, mock_sleep, mock_api_call):
         """Test explore with default parameters."""
         mock_time.side_effect = [0, 1]
@@ -559,9 +489,9 @@ class TestExplore:
         assert len(logs) == 3
         mock_api_call.assert_called_once_with([], None, None)
 
-    @patch('mbd_core.zora.zora_api._make_explore_api_call')
-    @patch('mbd_core.zora.zora_api.time.sleep')
-    @patch('mbd_core.zora.zora_api.time.time')
+    @patch("mbd_core.zora.zora_api._make_explore_api_call")
+    @patch("mbd_core.zora.zora_api.time.sleep")
+    @patch("mbd_core.zora.zora_api.time.time")
     def test_explore_no_list_type(self, mock_time, mock_sleep, mock_api_call):
         """Test explore without list_type."""
         mock_time.side_effect = [0, 1]
