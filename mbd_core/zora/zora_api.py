@@ -113,7 +113,9 @@ def _parse_node(node: dict[str, Any]) -> dict[str, Any]:
     }
 
 
-def _make_explore_api_call(array: list[dict[str, Any]], list_type: str | None, last_cursor: str | None) -> tuple[int, bool, str | None]:
+def _make_explore_api_call(
+    array: list[dict[str, Any]], list_type: str | None, last_cursor: str | None
+) -> tuple[int, bool, str | None]:
     url = EXPLORE_URL
     if list_type:
         url = url + f"&listType={list_type}"
@@ -131,7 +133,11 @@ def _make_explore_api_call(array: list[dict[str, Any]], list_type: str | None, l
     return len(parsed), has_next_page, cursor
 
 
-def explore(list_type: str | None, max_api_calls: int = MAX_API_CALLS, max_polling_time: int = MAX_POLLING_TIME) -> tuple[pd.DataFrame, list[str]]:
+def explore(
+    list_type: str | None,
+    max_api_calls: int = MAX_API_CALLS,
+    max_polling_time: int = MAX_POLLING_TIME,
+) -> tuple[pd.DataFrame, list[str]]:
     """Explore Zora API and return a DataFrame with parsed data.
 
     Args:
