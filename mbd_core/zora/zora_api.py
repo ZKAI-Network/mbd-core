@@ -4,6 +4,8 @@ import time
 import pandas as pd
 import requests
 
+from mbd_core.zora import schema
+
 ZORA_API_KEY = os.getenv("ZORA_API_KEY")
 EXPLORE_URL = "https://api-sdk.zora.engineering/explore?count=10"
 WAIT_BETWEEN_CALLS = 0.100
@@ -60,29 +62,29 @@ def parse_preview_medium_url(node):
 
 def parse_node(node):
     return {
-        "id": node.get("id"),
-        "token_uri": node.get("tokenUri"),
-        "chain_id": node.get("chainId"),
-        "name": node.get("name"),
-        "description": node.get("description"),
-        "address": node.get("address"),
-        "symbol": node.get("symbol"),
-        "total_supply": node.get("totalSupply"),
-        "total_volume": node.get("totalVolume"),
-        "volume_24h": node.get("volume24h"),
-        "created_at": node.get("createdAt"),
-        "creator_address": node.get("creatorAddress"),
-        "price_in_usdc": parse_price_in_usdc(node),
-        "market_cap": node.get("marketCap"),
-        "market_cap_delta_24h": node.get("marketCapDelta24h"),
-        "unique_holders": node.get("uniqueHolders"),
-        "platform_referrer_address": node.get("platformReferrerAddress"),
-        "payout_recipient_address": node.get("payoutRecipientAddress"),
-        "creator_farcaster_id": parse_farcaster_id(node),
-        "media_content_type": parse_media_content_type(node),
-        "media_content_url": parse_media_content_url(node),
-        "preview_small_url": parse_preview_small_url(node),
-        "preview_medium_url": parse_preview_medium_url(node),
+        schema.ZORA_COIN_ID: node.get("id"),
+        schema.ZORA_TOKEN_URI: node.get("tokenUri"),
+        schema.ZORA_CHAIN_ID: node.get("chainId"),
+        schema.ZORA_NAME: node.get("name"),
+        schema.ZORA_DESCRIPTION: node.get("description"),
+        schema.ZORA_ADDRESS: node.get("address"),
+        schema.ZORA_SYMBOL: node.get("symbol"),
+        schema.ZORA_TOTAL_SUPPLY: node.get("totalSupply"),
+        schema.ZORA_TOTAL_VOLUME: node.get("totalVolume"),
+        schema.ZORA_VOLUME_24H: node.get("volume24h"),
+        schema.ZORA_CREATED_AT: node.get("createdAt"),
+        schema.ZORA_CREATOR_ADDRESS: node.get("creatorAddress"),
+        schema.ZORA_PRICE_IN_USDC: parse_price_in_usdc(node),
+        schema.ZORA_MARKET_CAP: node.get("marketCap"),
+        schema.ZORA_MARKET_CAP_DELTA_24H: node.get("marketCapDelta24h"),
+        schema.ZORA_UNIQUE_HOLDERS: node.get("uniqueHolders"),
+        schema.ZORA_PLATFORM_REFERRER_ADDRESS: node.get("platformReferrerAddress"),
+        schema.ZORA_PAYOUT_RECIPIENT_ADDRESS: node.get("payoutRecipientAddress"),
+        schema.ZORA_CREATOR_FARCASTER_ID: parse_farcaster_id(node),
+        schema.ZORA_MEDIA_CONTENT_TYPE: parse_media_content_type(node),
+        schema.ZORA_MEDIA_CONTENT_URL: parse_media_content_url(node),
+        schema.ZORA_PREVIEW_SMALL_URL: parse_preview_small_url(node),
+        schema.ZORA_PREVIEW_MEDIUM_URL: parse_preview_medium_url(node),
     }
 
 
