@@ -1,9 +1,10 @@
 # pls better provide a constrained version instead of a pinned version
 pydantic>=2.6.0
 pydantic-settings
-pandas==2.1.3
+pandas
 pandera
 fasttext-langdetect
 emoji
 aiohttp
 pyarrow
+types-requests

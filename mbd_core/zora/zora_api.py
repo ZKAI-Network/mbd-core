@@ -2,6 +2,7 @@
 
 import os
 import time
+from typing import Any
 
 import pandas as pd
 import requests
@@ -15,54 +16,76 @@ MAX_API_CALLS = 250
 MAX_POLLING_TIME = 180
 
 
-def _parse_farcaster_id(node):
+def _parse_int(node: dict[str, Any], key: str) -> int | None:
     try:
-        return (
+        result = node.get(key)
+        return int(result) if result else None
+    except (ValueError, KeyError, TypeError, AttributeError):
+        return None
+
+
+def _parse_float(node: dict[str, Any], key: str) -> float | None:
+    try:
+        result = node.get(key)
+        return float(result) if result else None
+    except (ValueError, KeyError, TypeError, AttributeError):
+        return None
+
+
+def _parse_price_in_usdc(node: dict[str, Any]) -> float | None:
+    try:
+        result = node.get("tokenPrice", {}).get("priceInUsdc")
+        return float(result) if result else None
+    except (ValueError, KeyError, TypeError, AttributeError):
+        return None
+
+
+def _parse_farcaster_id(node: dict[str, Any]) -> str | None:
+    try:
+        result = (
             node.get("creatorProfile", {})
             .get("socialAccounts", {})
             .get("farcaster", {})
             .get("id")
         )
-    except (KeyError, TypeError, AttributeError):
+        return str(result) if result else None
+    except (ValueError, KeyError, TypeError, AttributeError):
         return None
 
 
-def _parse_price_in_usdc(node):
+def _parse_media_content_type(node: dict[str, Any]) -> str | None:
     try:
-        return node.get("tokenPrice", {}).get("priceInUsdc")
+        result = node.get("mediaContent", {}).get("mimeType")
+        return str(result) if result else None
     except (KeyError, TypeError, AttributeError):
         return None
 
 
-def _parse_media_content_type(node):
+def _parse_media_content_url(node: dict[str, Any]) -> str | None:
     try:
-        return node.get("mediaContent", {}).get("mimeType")
+        result = node.get("mediaContent", {}).get("originalUri")
+        return str(result) if result else None
     except (KeyError, TypeError, AttributeError):
         return None
 
 
-def _parse_media_content_url(node):
+def _parse_preview_small_url(node: dict[str, Any]) -> str | None:
     try:
-        return node.get("mediaContent", {}).get("originalUri")
+        result = node.get("mediaContent", {}).get("previewImage", {}).get("small")
+        return str(result) if result else None
     except (KeyError, TypeError, AttributeError):
         return None
 
 
-def _parse_preview_small_url(node):
+def _parse_preview_medium_url(node: dict[str, Any]) -> str | None:
     try:
-        return node.get("mediaContent", {}).get("previewImage", {}).get("small")
+        result = node.get("mediaContent", {}).get("previewImage", {}).get("medium")
+        return str(result) if result else None
     except (KeyError, TypeError, AttributeError):
         return None
 
 
-def _parse_preview_medium_url(node):
-    try:
-        return node.get("mediaContent", {}).get("previewImage", {}).get("medium")
-    except (KeyError, TypeError, AttributeError):
-        return None
-
-
-def _parse_node(node):
+def _parse_node(node: dict[str, Any]) -> dict[str, Any]:
     return {
         schema.ZORA_COIN_ID: node.get("id"),
         schema.ZORA_COIN_URI: node.get("tokenUri"),
@@ -71,15 +94,15 @@ def _parse_node(node):
         schema.ZORA_DESCRIPTION: node.get("description"),
         schema.ZORA_ADDRESS: node.get("address"),
         schema.ZORA_SYMBOL: node.get("symbol"),
-        schema.ZORA_TOTAL_SUPPLY: node.get("totalSupply"),
-        schema.ZORA_TOTAL_VOLUME: node.get("totalVolume"),
-        schema.ZORA_VOLUME_24H: node.get("volume24h"),
+        schema.ZORA_TOTAL_SUPPLY: _parse_float(node, "totalSupply"),
+        schema.ZORA_TOTAL_VOLUME: _parse_float(node, "totalVolume"),
+        schema.ZORA_VOLUME_24H: _parse_float(node, "volume24h"),
         schema.ZORA_CREATED_AT: node.get("createdAt"),
         schema.ZORA_CREATOR_ADDRESS: node.get("creatorAddress"),
         schema.ZORA_PRICE_IN_USDC: _parse_price_in_usdc(node),
-        schema.ZORA_MARKET_CAP: node.get("marketCap"),
-        schema.ZORA_MARKET_CAP_DELTA_24H: node.get("marketCapDelta24h"),
-        schema.ZORA_UNIQUE_HOLDERS: node.get("uniqueHolders"),
+        schema.ZORA_MARKET_CAP: _parse_float(node, "marketCap"),
+        schema.ZORA_MARKET_CAP_DELTA_24H: _parse_float(node, "marketCapDelta24h"),
+        schema.ZORA_UNIQUE_HOLDERS: _parse_int(node, "uniqueHolders"),
         schema.ZORA_PLATFORM_REFERRER_ADDRESS: node.get("platformReferrerAddress"),
         schema.ZORA_PAYOUT_RECIPIENT_ADDRESS: node.get("payoutRecipientAddress"),
         schema.ZORA_CREATOR_FARCASTER_ID: _parse_farcaster_id(node),
@@ -90,13 +113,13 @@ def _parse_node(node):
     }
 
 
-def _make_explore_api_call(array, list_type, last_cursor):
+def _make_explore_api_call(array: list[dict[str, Any]], list_type: str | None, last_cursor: str | None) -> tuple[int, bool, str | None]:
     url = EXPLORE_URL
     if list_type:
         url = url + f"&listType={list_type}"
     if last_cursor:
         url = url + f"&after={last_cursor}"
-    headers = {"apiKey": ZORA_API_KEY}
+    headers: dict[str, str] = {"apiKey": ZORA_API_KEY or ""}
     response = requests.get(url, headers=headers, timeout=30).json()
     if "exploreList" not in response:
         return 0, False, None
@@ -108,7 +131,7 @@ def _make_explore_api_call(array, list_type, last_cursor):
     return len(parsed), has_next_page, cursor
 
 
-def explore(list_type, max_api_calls=MAX_API_CALLS, max_polling_time=MAX_POLLING_TIME):
+def explore(list_type: str | None, max_api_calls: int = MAX_API_CALLS, max_polling_time: int = MAX_POLLING_TIME) -> tuple[pd.DataFrame, list[str]]:
     """Explore Zora API and return a DataFrame with parsed data.
 
     Args:
@@ -120,7 +143,7 @@ def explore(list_type, max_api_calls=MAX_API_CALLS, max_polling_time=MAX_POLLING
         tuple: (DataFrame with parsed data, list of log messages)
     """
     start_time = time.time()
-    array = []
+    array: list[dict[str, Any]] = []
     has_next_page = True
     last_cursor = None
     num_calls = 0
