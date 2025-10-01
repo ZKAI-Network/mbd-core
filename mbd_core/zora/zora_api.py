@@ -1,6 +1,8 @@
 """Zora API utils functions."""
 
 import datetime
+import json
+import logging
 import os
 import time
 from typing import Any
@@ -10,6 +12,7 @@ import requests
 
 from mbd_core.zora import schema
 
+logger = logging.getLogger()
 ZORA_API_KEY = os.getenv("ZORA_API_KEY")
 EXPLORE_URL = "https://api-sdk.zora.engineering/explore?count=10"
 COIN_URL = "https://api-sdk.zora.engineering/coin"
@@ -90,21 +93,23 @@ def _parse_preview_medium_url(node: dict[str, Any]) -> str | None:
 def _make_explore_api_call(
     array: list[dict[str, Any]], list_type: str | None, last_cursor: str | None
 ) -> tuple[int, bool, str | None]:
-    url = EXPLORE_URL
-    if list_type:
-        url = url + f"&listType={list_type}"
-    if last_cursor:
-        url = url + f"&after={last_cursor}"
-    headers: dict[str, str] = {"apiKey": ZORA_API_KEY or ""}
-    response = requests.get(url, headers=headers, timeout=30).json()
-    if "exploreList" not in response:
+    try:
+        url = EXPLORE_URL
+        if list_type:
+            url = url + f"&listType={list_type}"
+        if last_cursor:
+            url = url + f"&after={last_cursor}"
+        headers: dict[str, str] = {"apiKey": ZORA_API_KEY or ""}
+        response = requests.get(url, headers=headers, timeout=30).json()
+        has_next_page = response["exploreList"]["pageInfo"]["hasNextPage"]
+        cursor = response["exploreList"]["pageInfo"]["endCursor"]
+        nodes = [x["node"] for x in response["exploreList"]["edges"]]
+        parsed = [parse_info(node) for node in nodes]
+        array.extend(parsed)
+        return len(parsed), has_next_page, cursor
+    except (requests.RequestException, KeyError, ValueError, json.JSONDecodeError):
+        logger.exception("Error making explore API call")
         return 0, False, None
-    has_next_page = response["exploreList"]["pageInfo"]["hasNextPage"]
-    cursor = response["exploreList"]["pageInfo"]["endCursor"]
-    nodes = [x["node"] for x in response["exploreList"]["edges"]]
-    parsed = [parse_info(node) for node in nodes]
-    array.extend(parsed)
-    return len(parsed), has_next_page, cursor
 
 
 def explore(
@@ -182,5 +187,7 @@ def parse_info(node: dict[str, Any]) -> dict[str, Any]:
         schema.ZORA_MEDIA_CONTENT_URL: _parse_media_content_url(node),
         schema.ZORA_PREVIEW_SMALL_URL: _parse_preview_small_url(node),
         schema.ZORA_PREVIEW_MEDIUM_URL: _parse_preview_medium_url(node),
-        schema.ZORA_UPDATED_AT: datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        schema.ZORA_UPDATED_AT: datetime.datetime.now(datetime.timezone.utc).strftime(
+            "%Y-%m-%d %H:%M:%S"
+        ),
     }
