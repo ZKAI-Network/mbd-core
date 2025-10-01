@@ -101,6 +101,8 @@ def _make_explore_api_call(
             url = url + f"&after={last_cursor}"
         headers: dict[str, str] = {"apiKey": ZORA_API_KEY or ""}
         response = requests.get(url, headers=headers, timeout=30).json()
+        if "exploreList" not in response:
+            return 0, False, None
         has_next_page = response["exploreList"]["pageInfo"]["hasNextPage"]
         cursor = response["exploreList"]["pageInfo"]["endCursor"]
         nodes = [x["node"] for x in response["exploreList"]["edges"]]
