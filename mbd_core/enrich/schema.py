@@ -38,6 +38,8 @@ ITEM_CLUSTER_ID_COLUMN = "cluster_id"
 
 
 USER_SEM_EMBED_COLUMN = "user_sem_embed"
+USER_NUM_FOLLOWER_COLUMN = "num_follower"
+USER_NUM_FOLLOWING_COLUMN = "num_following"
 
 
 def _check_sequence(x: pd.Series) -> bool:
