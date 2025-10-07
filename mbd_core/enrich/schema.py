@@ -32,8 +32,10 @@ VIDEO_DURATION_MAX_COLUMN = "video_duration_max"
 VIDEO_LANGUAGES_COLUMN = "video_languages"
 MINIAPP_CATEGORIES_COLUMN = "miniapp_categories"
 ITEM_ENRICH_MODEL_SCORES_COLUMN = "item_enrich_model_scores"
-ITEM_LIKE_SCORE_COLUMN = "like_score"
-ITEM_SHARE_SCORE_COLUMN = "share_score"
+ITEM_LIKE_SCORE_COLUMN = "score_like"
+ITEM_SHARE_SCORE_COLUMN = "score_share"
+ITEM_COMMENT_SCORE_COLUMN = "score_comment"
+ITEM_REACTION_SCORE_COLUMN = "score_reaction"
 ITEM_CLUSTER_ID_COLUMN = "cluster_id"
 
 
