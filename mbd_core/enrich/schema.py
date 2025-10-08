@@ -36,6 +36,8 @@ ITEM_LIKE_SCORE_COLUMN = "score_like"
 ITEM_SHARE_SCORE_COLUMN = "score_share"
 ITEM_COMMENT_SCORE_COLUMN = "score_comment"
 ITEM_REACTION_SCORE_COLUMN = "score_reaction"
+ITEM_SPAM_SCORE_COLUMN = "score_spam"
+ITEM_MODERATION_SCORE_COLUMN = "score_not_ok"
 ITEM_CLUSTER_ID_COLUMN = "cluster_id"
 
 
