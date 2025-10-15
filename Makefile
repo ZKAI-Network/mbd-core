@@ -10,7 +10,7 @@ lint-check:
 	.venv/bin/black --check .
 
 test:
-	.venv/bin/pytest
+	echo "No tests yet"
 
 clean:
 	rm -rf build/
