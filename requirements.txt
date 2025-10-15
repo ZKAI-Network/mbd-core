@@ -1,96 +1,10 @@
-aiohappyeyeballs==2.4.4
-    # via aiohttp
-aiohttp==3.11.11
-    # via -r requirements.in
-aiosignal==1.3.2
-    # via aiohttp
-annotated-types==0.7.0
-    # via pydantic
-attrs==24.3.0
-    # via aiohttp
-certifi==2024.12.14
-    # via requests
-charset-normalizer==3.4.1
-    # via requests
-emoji==2.14.1
-    # via -r requirements.in
-fasttext==0.9.3
-    # via fasttext-langdetect
-fasttext-langdetect==1.0.5
-    # via -r requirements.in
-frozenlist==1.5.0
-    # via
-    #   aiohttp
-    #   aiosignal
-idna==3.10
-    # via
-    #   requests
-    #   yarl
-multidict==6.1.0
-    # via
-    #   aiohttp
-    #   yarl
-mypy-extensions==1.0.0
-    # via typing-inspect
-numpy==1.26.4
-    # via
-    #   fasttext
-    #   pandas
-    #   pandera
-packaging==24.2
-    # via pandera
-pandas==2.1.3
-    # via
-    #   -r requirements.in
-    #   pandera
-pandera==0.22.1
-    # via -r requirements.in
-propcache==0.2.1
-    # via
-    #   aiohttp
-    #   yarl
-pyarrow==19.0.0
-    # via -r requirements.in
-pybind11==2.13.6
-    # via fasttext
-pydantic==2.10.5
-    # via
-    #   -r requirements.in
-    #   pandera
-    #   pydantic-settings
-pydantic-core==2.27.2
-    # via pydantic
-pydantic-settings==2.7.1
-    # via -r requirements.in
-python-dateutil==2.9.0.post0
-    # via pandas
-python-dotenv==1.0.1
-    # via pydantic-settings
-pytz==2024.2
-    # via pandas
-requests==2.32.3
-    # via fasttext-langdetect
-setuptools==75.8.0
-    # via fasttext
-six==1.17.0
-    # via python-dateutil
-typeguard==4.4.1
-    # via pandera
-types-requests==2.32.4.20250913
-    # via -r requirements.in
-typing-extensions==4.12.2
-    # via
-    #   pydantic
-    #   pydantic-core
-    #   typeguard
-    #   typing-inspect
-typing-inspect==0.9.0
-    # via pandera
-tzdata==2025.1
-    # via pandas
-urllib3==2.3.0
-    # via
-    #   requests
-    #   types-requests
-yarl==1.18.3
-    # via aiohttp
+pydantic
+pydantic-settings
+pandas
+pandera
+fasttext-langdetect
+emoji
+aiohttp
+pyarrow
+types-requests
+black
