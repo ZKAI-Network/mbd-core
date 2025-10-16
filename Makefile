@@ -12,7 +12,7 @@ install:
 lint-fix:
 	.venv/bin/black .
 
-lint-check:
+lint:
 	.venv/bin/black --check .
 
 test:
