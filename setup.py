@@ -9,7 +9,7 @@ long_description = (this_directory / "README.md").read_text(encoding="utf-8")
 setup(
     name="mbd_core",
     version="4.0.0",
-    description="Recommender packages and data science utilities.",
+    description="Common definitions for mbd recommender system.",
     long_description=long_description,
     long_description_content_type="text/markdown",
     author="mbd ds team",
