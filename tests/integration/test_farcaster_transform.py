@@ -71,9 +71,9 @@ def test_get_item_df(farcaster_casts_dataframe):
         expected_root = (
             "root" if pd.isna(cast["parent_hash"]) else "0x" + cast["root_parent_hash"]
         )
-        assert item[ROOT_ITEM_COLUMN] == expected_root, (
-            f"Root item doesn't match for record {idx}. Expected {expected_root}, got {item[ROOT_ITEM_COLUMN]}"
-        )
+        assert (
+            item[ROOT_ITEM_COLUMN] == expected_root
+        ), f"Root item doesn't match for record {idx}. Expected {expected_root}, got {item[ROOT_ITEM_COLUMN]}"
 
         # Test text processing
         assert isinstance(item[ITEM_TEXT_COLUMN], dict)
@@ -94,19 +94,19 @@ def test_get_item_df(farcaster_casts_dataframe):
                 ]
             )
         )
-        assert item[EMBED_ITEMS_COLUMN] == expected_urls, (
-            f"URLs don't match for record {idx}"
-        )
+        assert (
+            item[EMBED_ITEMS_COLUMN] == expected_urls
+        ), f"URLs don't match for record {idx}"
         # Verify no duplicates
-        assert len(item[EMBED_ITEMS_COLUMN]) == len(set(item[EMBED_ITEMS_COLUMN])), (
-            f"Duplicate URLs found in record {idx}"
-        )
+        assert len(item[EMBED_ITEMS_COLUMN]) == len(
+            set(item[EMBED_ITEMS_COLUMN])
+        ), f"Duplicate URLs found in record {idx}"
 
         # Test user mentions
         assert isinstance(item[EMBED_USERS_COLUMN], list)
-        assert item[EMBED_USERS_COLUMN] == [str(x) for x in cast["mentions"]], (
-            f"Mentions don't match for record {idx}"
-        )
+        assert item[EMBED_USERS_COLUMN] == [
+            str(x) for x in cast["mentions"]
+        ], f"Mentions don't match for record {idx}"
 
         # Test publication type
         assert item[PUBLICATION_TYPE_COLUMN] in [t.value for t in PUBLICATION_TYPES]
@@ -150,9 +150,9 @@ def test_get_interaction_df(farcaster_casts_dataframe, farcaster_reactions_dataf
                 & (post_comment_df[ITEM_COLUMN] == "0x" + cast["parent_hash"])
                 & (post_comment_df[EDGE_TYPE_COLUMN] == "comment")
             ]
-            assert len(comment_interaction) == 1, (
-                f"Missing comment interaction for cast {idx}"
-            )
+            assert (
+                len(comment_interaction) == 1
+            ), f"Missing comment interaction for cast {idx}"
             comment = comment_interaction.iloc[0]
 
             # Verify comment interaction fields

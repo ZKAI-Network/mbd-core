@@ -1,7 +1,0 @@
-# Please do not add any requirements here and instead include other *.in files.
-# All *.in files under requirements-dev/ should be included here.
--r requirements.in
--r requirements-dev/docs.in
--r requirements-dev/lint.in
--r requirements-dev/misc.in
--r requirements-dev/test.in

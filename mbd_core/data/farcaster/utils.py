@@ -69,7 +69,9 @@ async def get_urls_metadata(urls: list[str], session: aiohttp.ClientSession) -> 
                 result = await response.json()
                 return cast(dict, result)
         except ContentTypeError as e:  # pragma: no cover
-            print(f"HTTP client error occurred: {e} for {urls}, retring...")  # noqa: T201
+            print(
+                f"HTTP client error occurred: {e} for {urls}, retring..."
+            )  # noqa: T201
             time.sleep(1)
 
 

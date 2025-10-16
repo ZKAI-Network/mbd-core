@@ -1,5 +1,0 @@
-
-blocklint
-ruff>=0.2.0
-mypy>=0.970
-yamllint>=1.32.0

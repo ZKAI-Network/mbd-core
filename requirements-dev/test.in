@@ -1,9 +1,0 @@
-pytest>=7.0.0
-# We are temporarily blocking iniconfig version 1.0.1 since it seems
-# to be transiently vanishing from artifactory. See {DRQS 162256520}
-iniconfig!=1.0.1
-pytest-cov
-pytest-sugar
-pytest-lazy-fixture
-# pytest 7.2.0 removed a dependency on py which broke some plugins that rely on it
-py
