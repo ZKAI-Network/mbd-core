@@ -12,8 +12,12 @@ install:
 lint-fix:
 	.venv/bin/black .
 
-lint:
+lint-check:
 	.venv/bin/black --check .
+
+lint:
+	$(MAKE) install
+	$(MAKE) lint-check
 
 test:
 	echo "No tests yet"
