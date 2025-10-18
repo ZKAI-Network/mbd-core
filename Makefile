@@ -40,6 +40,6 @@ publish-test:
 	@if [ -z "$$PYPI_API_TOKEN_TEST" ]; then echo "Error: PYPI_API_TOKEN_TEST not set"; exit 1; fi
 	.venv/bin/twine upload --repository-url https://test.pypi.org/legacy/ -u __token__ -p "$$PYPI_API_TOKEN_TEST" dist/*
 
-publish:
+publish-prod:
 	@if [ -z "$$PYPI_API_TOKEN_PROD" ]; then echo "Error: PYPI_API_TOKEN_PROD not set"; exit 1; fi
 	.venv/bin/twine upload -u __token__ -p "$$PYPI_API_TOKEN_PROD" dist/*
