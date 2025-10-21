@@ -49,6 +49,7 @@ USER_SPAM_SCORE_COLUMN = "user_score_spam"
 USER_EVENTS_PER_DAY_COLUMN = "user_events_per_day"
 USER_WARPCAST_SPAM_COLUMN = "user_warpcast_spam"
 
+
 def _check_sequence(x: pd.Series) -> bool:
     return cast(bool, x.apply(lambda x: isinstance(x, (np.ndarray | list))).all())
 
