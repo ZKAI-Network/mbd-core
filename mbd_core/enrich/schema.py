@@ -45,6 +45,8 @@ ITEM_SCORE_TRENDING_COLUMN = "score_trending"
 USER_SEM_EMBED_COLUMN = "user_sem_embed"
 USER_NUM_FOLLOWER_COLUMN = "num_follower"
 USER_NUM_FOLLOWING_COLUMN = "num_following"
+USER_SPAM_SCORE_COLUMN = "user_score_spam"
+USER_EVENTS_PER_DAY_COLUMN = "user_events_per_day"
 
 
 def _check_sequence(x: pd.Series) -> bool:
