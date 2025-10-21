@@ -41,6 +41,7 @@ ITEM_MODERATION_SCORE_COLUMN = "score_not_ok"
 ITEM_CLUSTER_ID_COLUMN = "cluster_id"
 ITEM_SCORE_POPULAR_COLUMN = "score_popular"
 ITEM_SCORE_TRENDING_COLUMN = "score_trending"
+ITEM_DOMAINS_COLUMN = "domains"
 
 USER_SEM_EMBED_COLUMN = "user_sem_embed"
 USER_NUM_FOLLOWER_COLUMN = "num_follower"
