@@ -47,7 +47,7 @@ USER_SEM_EMBED_COLUMN = "user_sem_embed"
 USER_NUM_FOLLOWER_COLUMN = "num_follower"
 USER_NUM_FOLLOWING_COLUMN = "num_following"
 USER_SPAM_SCORE_COLUMN = "user_score_spam"
-USER_EVENTS_NUM = "user_events_num"
+USER_EVENTS_NUM_COLUMN = "user_events_num"
 USER_EVENTS_PER_DAY_COLUMN = "user_events_per_day"
 USER_WARPCAST_SPAM_COLUMN = "user_warpcast_spam"
 
