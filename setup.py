@@ -14,7 +14,6 @@ setup(
     long_description_content_type="text/markdown",
     author="mbd ds team",
     author_email="na@mbd.xyz",
-    python_requires="~=3.10",
     include_package_data=True,
     packages=find_namespace_packages(include=["mbd_core", "mbd_core.*"]),
     package_data={"mbd_core.enrich.labelling": ["config.json"]},
